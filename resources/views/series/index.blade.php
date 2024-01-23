@@ -6,6 +6,7 @@
         {{$mensagemSucesso}}
     </div>
     @endisset
+    
 
     <ul class="list-group">
         @foreach ($series as $serie)
@@ -14,6 +15,7 @@
 
             <form action="{{route('series.destroy', $serie->id)}}" method="post">
                 @csrf
+                @method('DELETE')
                 <button class= "button.btn.btn-danger.btn-sm">
                 X
                 </button>
