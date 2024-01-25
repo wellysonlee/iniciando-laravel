@@ -12,7 +12,7 @@ class SeriesController extends Controller
 {
     public function index(Request $request)
     {
-        $series = Serie::query()->orderBy('nome')->get();
+        $series = Series::all();
         $mensagemSucesso = session('mensagem.sucesso');
 
         return view('series.index')->with('series', $series)->with('mensagemSucesso', $mensagemSucesso);
