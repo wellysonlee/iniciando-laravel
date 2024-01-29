@@ -27,8 +27,7 @@ class SeriesController extends Controller
 
     public function store(SeriesFormRequest $request)
     {
-        $serie=null;
-        SB::transaction (function () use ($request, &$serie) {
+        $serie = DB::transaction (function () use ($request) {
         $serie = Serie::create($request->all());
         $season = [];
         for ($i = 1; $i <= $request->seasonsQty; $i ++){
@@ -49,6 +48,8 @@ class SeriesController extends Controller
             }
         }
         Episode::insert($episodes);
+
+        return $serie;
         });
         
 
