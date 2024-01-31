@@ -11,7 +11,10 @@ class Episode extends Model
     public $timestamps = false;
     protected $fillable = ['number'];
 
-    public function season(){
+    public function season()
+    {
         return $this->belongsTo(Season::class);
     }
+
+   
 }
