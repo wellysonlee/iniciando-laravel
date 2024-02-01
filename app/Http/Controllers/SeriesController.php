@@ -6,8 +6,10 @@ use App\Http\Requests\SeriesFormRequest;
 use App\Models\Serie;
 use App\Repositories\EloquentSeriesRepository;
 use App\Repositories\SeriesRepository;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Symfony\Contracts\Service\Attribute\Required;
+use Illuminate\Support\Facades\Auth;
 
 class SeriesController extends Controller
 {
@@ -30,9 +32,9 @@ class SeriesController extends Controller
     public function store(SeriesFormRequest $request)
     {
         $serie = $this->repository->add($request);
-        
+
         return to_route('series.index')
-        ->with('mensagem.sucesso',"Série '{$serie->nome}' adicionada com sucesso");
+            ->with('mensagem.sucesso', "Série '{$serie->nome}' adicionada com sucesso");
     }
 
     public function destroy(Serie $series)
