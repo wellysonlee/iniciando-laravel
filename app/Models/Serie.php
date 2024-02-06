@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Serie extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome'];
+    protected $fillable = ['nome', 'cover'];
 
     public function season(){
         return $this->hasMany(Season::class, 'series_id');
