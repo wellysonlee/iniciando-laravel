@@ -2,23 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Serie extends Model
+class Episode extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome', 'cover'];
+    public $timestamps = false;
+    protected $fillable = ['number'];
+    protected $casts = [
+        'watched' => 'boolean'
+    ];
 
-    public function season(){
-        return $this->hasMany(Season::class, 'series_id');
-    }
-
-    protected static function booted()
+    public function season()
     {
-        self::addGlobalScope('oredered', function (Builder $queryBuilder){
-            $queryBuilder->orderBy('nome');
-        });
+        return $this->belongsTo(Season::class);
     }
 }

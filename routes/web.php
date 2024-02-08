@@ -1,6 +1,7 @@
 <?php
 
 use App\Mail\SeriesCreated;
+use App\Models\Serie;
 use Illuminate\Support\Facades\Route;
 
 /*

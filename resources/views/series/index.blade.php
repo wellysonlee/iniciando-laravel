@@ -1,5 +1,4 @@
 <x-layout title="Séries" :mensagem-sucesso="$mensagemSucesso">
-    
     @auth
     <a href="{{ route('series.create') }}" class="btn btn-dark mb-2">Adicionar</a>
     @endauth
@@ -8,11 +7,12 @@
         @foreach ($series as $serie)
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-            <img class="me-3" src="{{ asset('storage/'.$serie->cover)}}" width="100px" class="img-thumnail" alt="">
-                @auth<a href="{{ route('seasons.index', $serie->id) }}"> @endauth
+                <img class="me-3" src="{{ asset('storage/' . $serie->cover) }}" width="100" class="img-thumbnail" alt="">
+                @auth <a href="{{ route('seasons.index', $serie->id) }}"> @endauth
                     {{ $serie->nome }}
                 @auth </a> @endauth
-                </div>
+            </div>
+
             @auth
             <span class="d-flex">
                 <a href="{{ route('series.edit', $serie->id) }}" class="btn btn-primary btn-sm">
