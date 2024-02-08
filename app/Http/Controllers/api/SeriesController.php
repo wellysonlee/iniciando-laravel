@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesFormRequest;
-use App\Models\Serie;
+use App\Models\Series;
 use App\Repositories\SeriesRepository;
 use Illuminate\Http\Request;
 
@@ -16,7 +16,7 @@ class SeriesController extends Controller
 
     public function index()
     {
-        return Serie::all();
+        return Series::all();
     }
 
     public function store(SeriesFormRequest $request)
@@ -27,7 +27,7 @@ class SeriesController extends Controller
 
     public function show(int $series)
     {
-        $seriesModel = Serie::with('season.episodes')->find($series);
+        $seriesModel = Series::with('seasons.episodes')->find($series);
         if($seriesModel === null){
             return response()->json(['message'=> 'Series not found'], 404);
         }
@@ -35,7 +35,7 @@ class SeriesController extends Controller
         return $seriesModel;
     }
 
-    public function update(Serie $series, SeriesFormRequest $request)
+    public function update(Series $series, SeriesFormRequest $request)
     {
         $series->fill($request->all());
         $series->save();
@@ -45,7 +45,7 @@ class SeriesController extends Controller
 
     public function destroy(int $series)
     {
-            Serie::destroy($series);
+            Series::destroy($series);
             return response()->noContent();
     }
 
