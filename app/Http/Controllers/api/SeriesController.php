@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesFormRequest;
 use App\Models\Series;
+use App\Models\User;
 use App\Repositories\SeriesRepository;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 
 class SeriesController extends Controller
@@ -17,12 +19,11 @@ class SeriesController extends Controller
     public function index(Request $request)
     {
         $query = Series::query();
-        if($request->has('nome')){
-            $query->where('nome', $request->nome);
+        if ($request->has('nome')) {
+            $query->where('nome' , $request->nome);
         }
 
         return $query->paginate(5);
-        
     }
 
     public function store(SeriesFormRequest $request)
@@ -34,8 +35,8 @@ class SeriesController extends Controller
     public function show(int $series)
     {
         $seriesModel = Series::with('seasons.episodes')->find($series);
-        if($seriesModel === null){
-            return response()->json(['message'=> 'Series not found'], 404);
+        if ($seriesModel === null) {
+            return response()->json(['message' => 'Series not found'], 404);
         }
 
         return $seriesModel;
@@ -49,12 +50,10 @@ class SeriesController extends Controller
         return $series;
     }
 
-    public function destroy(int $series)
+    public function destroy(int $series, Authenticatable $user)
     {
-            Series::destroy($series);
-            return response()->noContent();
+        dd($user->tokenCan('is_admin'));
+        Series::destroy($series);
+        return response()->noContent();
     }
-
-
-
 }
