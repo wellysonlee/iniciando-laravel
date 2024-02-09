@@ -28,7 +28,7 @@
         @endguest
     </div>
 </nav>
-<div class="container">
+<div class="px-5 bg-dark">
     <h1>{{ $title }}</h1>
 
     @isset($mensagemSucesso)
